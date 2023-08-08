@@ -6,10 +6,10 @@ COMPANY_NAME = "Tesla"
 STOCK = "TSLA"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
-STOCK_API = os.environ['STOCK_API']
+STOCK_API_KEY = os.environ['STOCK_API_KEY']
 
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
-NEWS_API = os.environ['NEWS_API']
+NEWS_API_KEY = os.environ['NEWS_API_KEY']
 
 TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
 TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
@@ -23,7 +23,7 @@ stock_params = {
     "symbol": STOCK,
     "outputsize": "compact",
     "datatype": "json",
-    "apikey": STOCK_API
+    "apikey": STOCK_API_KEY
 }
 
 response = requests.get(STOCK_ENDPOINT, stock_params)
@@ -42,12 +42,12 @@ else:
 diff_percent = round((difference / previous_close_value) * 100)
 
 # If difference is greater than 5%, get the latest 3 news pieces for the company
-if abs(diff_percent) > 0: # TODO Revert value back to 5% after testing
+if abs(diff_percent) > 5:
     news_params = {
         "q": COMPANY_NAME,
         "language": "en",
         "sortBy": "publishedAt",
-        "apiKey": NEWS_API
+        "apiKey": NEWS_API_KEY
     }
 
     response = requests.get(NEWS_ENDPOINT, news_params)
